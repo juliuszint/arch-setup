@@ -5,14 +5,12 @@ if [[ $# -eq 0 ]]; then
    timedatectl set-ntp true
 
    # disk partitioning setup
-   # 1:   1  GB EFI partition
+   # 1:   2  GB EFI partition
    # 2:   .. GB Encrypted root partition LUKS
-   # 3:   50 GB Linux From Scratch partition
    parted -s -a optimal -- /dev/nvme0n1 \
        mklabel gpt \
-       mkpart primary fat32 0% 1GB \
-       mkpart primary 1GB -50GB \
-       mkpart primary -50GB 100% \
+       mkpart primary fat32 0% 2GB \
+       mkpart primary 2GB 100% \
        set 1 esp on
 
    # LUKS full disk encryption
@@ -78,7 +76,7 @@ else
     # network configuration
     HOSTNAMEFILE=/etc/hostname
     HOSTSFILE=/etc/hosts
-    HOSTNAME='jtp'
+    HOSTNAME='jltp'
     echo "$HOSTNAME" > $HOSTNAMEFILE
     echo "127.0.0.1        localhost" >> $HOSTSFILE
     echo "::1              localhost" >> $HOSTSFILE
@@ -113,6 +111,6 @@ else
     sed -i '16i fallback_options="-S autodetect --splash /usr/share/systemd/bootctl/splash-arch.bmp"' $_PRESET_FILE
     mkinitcpio -P
     
-    printf 'Change juliuss password....\n'
+    printf 'Change julius s password....\n'
     passwd julius
 fi
