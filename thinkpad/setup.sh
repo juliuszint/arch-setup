@@ -109,6 +109,7 @@ else
     sed -i '12i default_options="--splash /usr/share/systemd/bootctl/splash-arch.bmp"' $_PRESET_FILE
     sed -i '15i fallback_efi_image="/boot/EFI/Linux/archlinux-linux-fallback.efi"' $_PRESET_FILE
     sed -i '16i fallback_options="-S autodetect --splash /usr/share/systemd/bootctl/splash-arch.bmp"' $_PRESET_FILE
+    mkdir -p /boot/EFI/Linux
     mkinitcpio -P
     
     printf 'Change julius s password....\n'
